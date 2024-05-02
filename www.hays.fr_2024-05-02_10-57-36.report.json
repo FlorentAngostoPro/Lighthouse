@@ -1,5 +1,4 @@
-[
-  {
+{
   "lighthouseVersion": "12.0.0",
   "requestedUrl": "https://www.hays.fr/",
   "mainDocumentUrl": "https://www.hays.fr/",
@@ -20139,4 +20138,3 @@
     }
   }
 }
-]
