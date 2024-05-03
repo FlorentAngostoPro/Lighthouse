@@ -1,0 +1,24 @@
+{
+    "Fetch Time":  "2024-05-03T10:35:35.794Z",
+    "Axe-core":  "4.9.0",
+    "Performance":  "      \"score\": 0.62",
+    "Accessibility":  "      \"score\": 0.86",
+    "Main Document URL":  "https://www.hays.fr/",
+    "Final URL":  "https://www.hays.fr/",
+    "Cumulative Layout Shift":  "      \"displayValue\": \"0.637\",",
+    "Host User Agent":  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Benchmark Index":  3017.5,
+    "Largest Contentful Paint":  "      \"displayValue\": \"40 ms\",",
+    "First Contentful Paint":  "      \"displayValue\": \"1.4 s\",",
+    "Best Practices":  "      \"score\": 0.78",
+    "Total Blocking Time":  "      \"displayValue\": \"0 ms\",",
+    "Requested URL":  "https://www.hays.fr/",
+    "Network User Agent":  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+    "Speed Index":  "      \"displayValue\": \"1.8 s\",",
+    "SEO":  "      \"score\": 0.92",
+    "User Agent":  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Gather Mode":  "navigation",
+    "Final Displayed URL":  "https://www.hays.fr/",
+    "Lighthouse Version":  "12.0.0"
+}
+
