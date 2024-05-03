@@ -1,0 +1,83 @@
+# Définir le chemin vers votre fichier JSON
+$jsonFilePath = "H:\www.hays.fr_2024-05-02_10-57-36.report.json"
+
+# Obtenir le nom du fichier d'entrée
+$inputFileName = Split-Path -Path $jsonFilePath -Leaf
+
+# Définir le chemin et le nom du fichier de sortie
+$outputFilePath = "C:\Users\angostof\Desktop\Lighthouse\shorten$inputFileName"
+
+# Lire le contenu du fichier JSON
+$jsonContent = Get-Content -Path $jsonFilePath | ConvertFrom-Json
+
+# Créer un objet pour stocker les résultats
+$results = @{}
+
+# Ajouter les informations demandées à l'objet de résultats
+$results["Lighthouse Version"] = $jsonContent.lighthouseVersion
+$results["Requested URL"] = $jsonContent.requestedUrl
+$results["Main Document URL"] = $jsonContent.mainDocumentUrl
+$results["Final Displayed URL"] = $jsonContent.finalDisplayedUrl
+$results["Final URL"] = $jsonContent.finalUrl
+$results["Fetch Time"] = $jsonContent.fetchTime
+$results["Gather Mode"] = $jsonContent.gatherMode
+$results["User Agent"] = $jsonContent.userAgent
+$results["Network User Agent"] = $jsonContent.environment.networkUserAgent
+$results["Host User Agent"] = $jsonContent.environment.hostUserAgent
+$results["Benchmark Index"] = $jsonContent.environment.benchmarkIndex
+$results["Axe-core"] = $jsonContent.environment.credits.'axe-core'
+
+# Lire le fichier ligne par ligne
+Get-Content -Path $jsonFilePath | ForEach-Object {
+    # Vérifier si la ligne actuelle correspond à l'un des motifs
+    if ($_ -match '"id": "seo"') {
+        $seoFlag = $true
+    } elseif ($_ -match '"id": "best-practices"') {
+        $bestPracticesFlag = $true
+    } elseif ($_ -match '"id": "accessibility"') {
+        $accessibilityFlag = $true
+    } elseif ($_ -match '"id": "performance"') {
+        $performanceFlag = $true
+    } elseif ($_ -match '"id": "first-contentful-paint"') {
+        $firstContentfulPaintFlag = $true
+    } elseif ($_ -match '"id": "total-blocking-time"') {
+        $totalBlockingTimeFlag = $true
+    } elseif ($_ -match '"id": "speed-index"') {
+        $speedIndexFlag = $true
+    } elseif ($_ -match '"id": "largest-contentful-paint"') {
+        $largestContentfulPaintFlag = $true
+    } elseif ($_ -match '"id": "cumulative-layout-shift"') {
+        $cumulativeLayoutShiftFlag = $true
+    } elseif ($seoFlag -and $_ -match '"score"') {
+        $results["SEO"] = ($_ -replace "Â", "")
+        $seoFlag = $false
+    } elseif ($bestPracticesFlag -and $_ -match '"score"') {
+        $results["Best Practices"] = ($_ -replace "Â", "")
+        $bestPracticesFlag = $false
+    } elseif ($accessibilityFlag -and $_ -match '"score"') {
+        $results["Accessibility"] = ($_ -replace "Â", "")
+        $accessibilityFlag = $false
+    } elseif ($performanceFlag -and $_ -match '"score"') {
+        $results["Performance"] = ($_ -replace "Â", "")
+        $performanceFlag = $false
+    } elseif ($firstContentfulPaintFlag -and $_ -match '"displayValue"') {
+        $results["First Contentful Paint"] = ($_ -replace "Â", "")
+        $firstContentfulPaintFlag = $false
+    } elseif ($totalBlockingTimeFlag -and $_ -match '"displayValue"') {
+        $results["Total Blocking Time"] = ($_ -replace "Â", "")
+        $totalBlockingTimeFlag = $false
+    } elseif ($speedIndexFlag -and $_ -match '"displayValue"') {
+        $results["Speed Index"] = ($_ -replace "Â", "")
+        $speedIndexFlag = $false
+    } elseif ($largestContentfulPaintFlag -and $_ -match '"displayValue"') {
+        $results["Largest Contentful Paint"] = ($_ -replace "Â", "")
+        $largestContentfulPaintFlag = $false
+    } elseif ($cumulativeLayoutShiftFlag -and $_ -match '"displayValue"') {
+        $results["Cumulative Layout Shift"] = ($_ -replace "Â", "")
+        $cumulativeLayoutShiftFlag = $false
+    }
+}
+
+# Convertir l'objet de résultats en JSON et l'écrire dans le fichier de sortie
+$results | ConvertTo-Json | Out-File -FilePath $outputFilePath
+
